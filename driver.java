@@ -4,8 +4,8 @@ public class driver
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("Quadrature");
-        frame.setSize(200, 200);
-        frame.setLocation(100,50);
+        frame.setSize(800,600);
+        frame.setLocation(350,150);
         frame.setDefaultCloseOperation(
                             JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(new panel());
