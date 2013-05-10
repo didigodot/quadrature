@@ -1,5 +1,5 @@
 import javax.swing.JFrame;
-public class Driver00
+public class driver
 {
     public static void main(String[] args)
     {
