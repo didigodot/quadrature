@@ -38,11 +38,15 @@ public class panel extends JPanel
             g.drawRect(i, (int)((550-(y*22))), 0, 0);
             }
     }
+    public void parsefunc(String s)
+    {
+    System.out.println(s); 
+    }
     private class Listener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println(input.getText());
+            parsefunc(input.getText());
         }
     }
 }
