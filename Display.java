@@ -36,7 +36,7 @@ public class Display extends JPanel
         for(int i = 50; i<700; i++)
             {
             double y = Math.pow((((double)i-50.0)/130.0), 2.0);
-            g2.drawRect(i, (int)((550-(y*22))), 1, 0);
+            g2.drawLine(i, (int)((550-(y*22))), i, (int)((550-(y*22))));
             }
     }
 }
