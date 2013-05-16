@@ -44,4 +44,7 @@ public class panel extends JPanel
             parsefunc(input.getText());
         }
     }
+  public Dimension getPreferredSize(){
+      return new Dimension(800,600);
+  }
 }

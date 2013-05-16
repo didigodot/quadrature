@@ -12,10 +12,12 @@ public class Driver
         panel p = new panel();
         p.add(new Display());
         frame.getContentPane().add(p);
+        frame.setSize(800,600);
         frame.pack();
-      
+        
         //UIManager.setLookAndFeel(
           //          UIManager.getSystemLookAndFeelClassName());
         frame.setVisible(true);
     }
+
 }
