@@ -9,6 +9,8 @@ public class driver
         frame.setDefaultCloseOperation(
                             JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(new panel());
+        //UIManager.setLookAndFeel(
+          //          UIManager.getSystemLookAndFeelClassName());
         frame.setVisible(true);
     }
 }
