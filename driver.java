@@ -1,5 +1,5 @@
 import javax.swing.JFrame;
-public class driver
+public class Driver
 {
     public static void main(String[] args)
     {
@@ -8,7 +8,12 @@ public class driver
         frame.setLocation(350,150);
         frame.setDefaultCloseOperation(
                             JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new panel());
+        //frame.setContentPane(new panel());
+        panel p = new panel();
+        p.add(new Display());
+        frame.getContentPane().add(p);
+        frame.pack();
+      
         //UIManager.setLookAndFeel(
           //          UIManager.getSystemLookAndFeelClassName());
         frame.setVisible(true);
