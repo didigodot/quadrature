@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.Math;
+//////////////////import java.lang.Math;
 import java.util.*;
 import java.awt.event.*;
 
@@ -12,10 +12,10 @@ public class Panel extends JPanel
     private JLabel dom;
     private JLabel intdom;
     private JLabel rule;
-    private JTextField input; //Box to input function
     private JTextField domain; //Box to input function domain
     private JTextField intdomain; //Box to input integration domain
-
+    private JComboBox rbox;
+    private JComboBox input;
     public Panel()
     {
         setLayout(new BorderLayout());
@@ -30,8 +30,12 @@ public class Panel extends JPanel
         title.setFont(new Font("Helvetica", Font.BOLD, 40));
         title.setForeground(Color.blue);
         titlep.add(title);
-    
-        input = new JTextField("ax^2+bx+c");
+   
+        String[] i = {"x^2", "x^3", "x^4"};
+        input = new JComboBox(i);
+        input.setSelectedIndex(0);
+        
+        //input = new JTextField("ax^2+bx+c");
         domain = new JTextField("-10"+","+" 10");
         intdomain = new JTextField("-5, 5");
 
@@ -49,7 +53,7 @@ public class Panel extends JPanel
         run.addActionListener(new Listener());
         
         String[] rules = {"Trapezoidal", "Simpson's", "Boole's"};
-        JComboBox rbox = new JComboBox(rules);
+        rbox = new JComboBox(rules);
         rbox.setSelectedIndex(0);
         rule = new JLabel("Integration method:");
         panel.add(rule);
@@ -61,21 +65,25 @@ public class Panel extends JPanel
         add(panel, BorderLayout.EAST);
         
      }
-   public static void parsefunc(String s)
+   public static void dostuff(JComboBox a, JComboBox b, JTextField c)
    {
-    String[] arr = s.split("");
-    int A = Integer.parseInt(arr[0]);
-    int B = Integer.parseInt(arr[5]);
-    int C = Integer.parseInt(arr[8]);
-    Display.parseF(A,B,C);
+    // tell display to draw function and collect data points
+    // tell quadengine to draw integration
+    // tell quadengine to output answer
+    // tell panel to draw answer
+        System.out.println(a.getSelectedItem());
+        System.out.println(b.getSelectedItem());
+        System.out.println(c.getText());
    }
     private class Listener implements ActionListener
     {
         public void actionPerformed(ActionEvent e)
         {
-            parsefunc(input.getText());
+            dostuff(input, rbox, intdomain);
+            
         }
     }
+
   public Dimension getPreferredSize(){
       return new Dimension(800,700);
   }
