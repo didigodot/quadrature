@@ -12,7 +12,7 @@ import java.io.*;
 * Display has a paintComponent and draws
 * the plotting area and function in the 
 * center of the panel
-* @author Didi Park, website: https://github.com/didigodot;
+* @author Didi Park, website: https://github.com/didigodot
 ************************************************************/
 public class Display extends JPanel 
 {

@@ -67,18 +67,23 @@ public class Panel extends JPanel
    * @param b   JComboBox with quadrature rule
    * @param c   JTextField with integration domain
    **********************************************/
-   public static void doStuff(JComboBox a, JComboBox b, JTextField c, JLabel d, Display e)
+   public static void doStuff(String a, String b, String c)
    {
         // tell Display to draw function and collect data points
         // update display 
-        e.updateUI();
-        // tell Processor to draw integration
-        Processor.drawInt();
-        // tell Processor to output answer,
-        // print answer to screen
-        answer.setText("Answer: "+Processor.compute());
         
    }
+  /*********************************************
+  * Returns parsed version of integration domain
+  * @param x    string containing integration domain
+  * @return     array with integration domain
+  *********************************************/
+  public static double[] id(String x)
+  {
+      //Split string, convert numbers to ints, put into array
+      int[] arr = new int[2];
+      return arr;
+  }
    /*****************************************
     * ActionListener for Run button
     *****************************************/
@@ -91,7 +96,11 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             //runs doStuff method
-            doStuff(input, rbox, intdomain, display);
+
+            doStuff((String)input.getSelectedItem(), (String)rbox.getSelectedItem(),intdomain.getText());
+            answer.setText("Answer: "+
+                    Processor.compute((String)rbox.getSelectedItem(), id()));
+            display.updateUI();
         }
     }
 /**************************************
