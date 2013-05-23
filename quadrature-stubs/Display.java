@@ -14,12 +14,10 @@ import java.io.*;
 * center of the panel
 * @author Didi Park, website: https://github.com/didigodot
 ************************************************************/
+
 public class Display extends JPanel 
 {
-    /****************************************************
-    * Draws axes of plot
-    * @param g  Graphics object
-    ****************************************************/
+   
     public void drawAxes(Graphics g)
     {
         // Set color to black
@@ -29,9 +27,10 @@ public class Display extends JPanel
     }
     /*******************************************************
     * Checks whether a given point is bounded by the plot
-    * @param x  x-coordinate
-    * @param y1 y-coordinate
-    * @param y2 second y-coordinate
+    * @param    x  x-coordinate
+    * @param    y1 y-coordinate
+    * @param    y2 second y-coordinate
+    * @return   boundedness
     *******************************************************/ 
     public static boolean bounded(int x, int y1, int y2)
     {
@@ -50,15 +49,24 @@ public class Display extends JPanel
     {
        // Set color to black
        // Plot graph depending on graph type 
+		 // Set different color if needed
+		 // Plot integration if needed
        //print data to text file
       
-    }        
+    }       
+	 /***************************************************
+    * Runs all other methods to draw function, axes, etc.
+    * @param g  Graphics object
+    ***************************************************/ 
     public void paintComponent(Graphics g) 
     {
         // Set color to white
         // Draw filled rectangle at (50,20), width=600, height=530
         // Set color to black
         // Draw rectangle at (50, 20), width=600, height=530
-        drawAxes(g);
+    	  //Draw axes    
+		  drawAxes(g);
+		  //Draw graph
+		  drawPlot(g);
     }
 }

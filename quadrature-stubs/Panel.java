@@ -81,7 +81,7 @@ public class Panel extends JPanel
   public static double[] id(String x)
   {
       //Split string, convert numbers to ints, put into array
-      int[] arr = new int[2];
+      double[] arr = new double[2];
       return arr;
   }
    /*****************************************
@@ -96,10 +96,9 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             //runs doStuff method
-
             doStuff((String)input.getSelectedItem(), (String)rbox.getSelectedItem(),intdomain.getText());
             answer.setText("Answer: "+
-                    Processor.compute((String)rbox.getSelectedItem(), id()));
+                    Processor.compute((String)rbox.getSelectedItem(), id(intdomain.getText())));
             display.updateUI();
         }
     }
