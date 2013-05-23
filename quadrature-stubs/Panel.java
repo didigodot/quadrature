@@ -1,6 +1,12 @@
 // Didi Park - Quadrature
 // May 23, 2013
 // Stubs
+
+import javax.swing.*; //Swing graphics classes
+import java.awt.*; // awt classes
+import java.util.*; //util classes
+import java.awt.event.*; // event classes
+
  /*******************************************************
  * A Panel has 5 JLabels, a JTextField, and 2 JComboBoxes.
  * It calls Display and sends user input to Display and
@@ -8,12 +14,6 @@
  * @author  Didi Park
  * @version 1.0
  ********************************************************/
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
-
 public class Panel extends JPanel 
 {
     Display display; // Instantiates display

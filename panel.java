@@ -1,90 +1,151 @@
-import javax.swing.*;
-import java.awt.*;
-//////////////////import java.lang.Math;
-import java.util.*;
-import java.awt.event.*;
+// Didi Park - Quadrature
+// May 23, 2013
+// Program
 
+import javax.swing.*; //Swing graphics classes
+import java.awt.*; // awt classes
+import java.util.*; //util classes
+import java.awt.event.*; // event classes
+
+ /*******************************************************
+ * A Panel has 5 JLabels, a JTextField, and 2 JComboBoxes.
+ * It calls Display and sends user input to Display and
+ * Processor.
+ * @author  Didi Park
+ * @version 1.0
+ ********************************************************/
 public class Panel extends JPanel 
 {
-    Display display;
+    Display display; // Instantiates display
     private JLabel title; //"Quadrature"
-    private JLabel inp;
-    private JLabel dom;
-    private JLabel intdom;
-    private JLabel rule;
-    private JTextField domain; //Box to input function domain
+    private JLabel inp; // Input label
+    private JLabel intdom; //Integration domain label
+    private JLabel rule; // Quadrature type label
+    private JLabel answer; // Answer to integration problem
     private JTextField intdomain; //Box to input integration domain
-    private JComboBox rbox;
-    private JComboBox input;
+    private JComboBox input; // combobox for input
+    private JComboBox rbox; // combobox for quadrature rule
+
+	 /******************************************************
+    * Sets layout and gives attributes to JComponents;
+    * also gives action listeners and adds components to 
+    * the panel
+    *****************************************************/
     public Panel()
     {
-        setLayout(new BorderLayout());
+	 	  //Set layout to BorderLayout
+        setLayout(new BorderLayout()); 
+		  // Instantiate new Display
         display = new Display();
-
+		  // instantiate new JPanel panel	
         JPanel panel = new JPanel();
+		  // set panel layout to GridLayout
         panel.setLayout(new GridLayout(14,3));
+		  // instantiate new JPanel titlep
         JPanel titlep = new JPanel();
+		  // Set titlep layout to FlowLayout
         titlep.setLayout(new FlowLayout()); 
-
+		  // set title label to "Quadrature"
         title = new JLabel("Quadrature");
+		  // Set title font to blue helvetica, 40 pt
         title.setFont(new Font("Helvetica", Font.BOLD, 40));
-        title.setForeground(Color.blue);
+		  title.setForeground(Color.blue);
+		  // Add title to titlep Panel
         titlep.add(title);
-   
+		  
+		  // Instantiate and set answer to JLabel "Answer: "
+        answer = new JLabel();
+        answer.setText("Answer: ");
+        
+   	  // set inp to JLabel for function input
+        inp = new JLabel("Function:");
+		  // create array of function choices
         String[] i = {"x^2", "x^3", "x^4"};
+		  // set input to combobox of string array i
         input = new JComboBox(i);
+		  // set selected index to the first: x^2
         input.setSelectedIndex(0);
         
-        //input = new JTextField("ax^2+bx+c");
-        domain = new JTextField("-10"+","+" 10");
-        intdomain = new JTextField("-5, 5");
-
-        inp = new JLabel("Function:");
-        dom = new JLabel("Domain:");
+		  // set integration domain label to text "0,5"
+        intdomain = new JTextField("0, 5");
+        // set intdom to JLabel for integration domain
         intdom = new JLabel("Integration interval:");
-        panel.add(inp);
-        panel.add(input);
-        panel.add(dom);
-        panel.add(domain);
-        panel.add(intdom);
-        panel.add(intdomain);
-        
+		  
+		  // create array of quadrature rule choices
+        String[] rules = {"Trapezoidal", "Simpson's", "Boole's"};
+    	  // instantiate rbox JComboBox    
+		  rbox = new JComboBox(rules);
+		  // set selected index to "Trapezoidal"
+        rbox.setSelectedIndex(0);
+		  // instantiate rule JLabel to text "Integration method:"
+        rule = new JLabel("Integration method:");
+
+		  // create run button, add action listener
         JButton run = new JButton("run");
         run.addActionListener(new Listener());
-        
-        String[] rules = {"Trapezoidal", "Simpson's", "Boole's"};
-        rbox = new JComboBox(rules);
-        rbox.setSelectedIndex(0);
-        rule = new JLabel("Integration method:");
+		  
+		  // add above components to subpanel panel
+        panel.add(inp);
+        panel.add(input);
+        panel.add(intdom);
+        panel.add(intdomain);
         panel.add(rule);
         panel.add(rbox);
         panel.add(run);
 
+		  // add subpanels to BorderLayout
         add(titlep, BorderLayout.NORTH); 
         add(display, BorderLayout.CENTER);
         add(panel, BorderLayout.EAST);
         
      }
-   public static void dostuff(JComboBox a, JComboBox b, JTextField c)
+	/**********************************************
+   * Sends information to Display and Processor
+   * @param a   JComboBox with function input
+   * @param b   JComboBox with quadrature rule
+   * @param c   JTextField with integration domain
+   **********************************************/
+   public static void doStuff(String a, String b, String c)
    {
-    // tell display to draw function and collect data points
-    // tell quadengine to draw integration
-    // tell quadengine to output answer
-    // tell panel to draw answer
-        System.out.println(a.getSelectedItem());
-        System.out.println(b.getSelectedItem());
-        System.out.println(c.getText());
+        // tell Display to draw function and collect data points
+        // update display 
+        
    }
+  /*********************************************
+  * Returns parsed version of integration domain
+  * @param x    string containing integration domain
+  * @return     array with integration domain
+  *********************************************/
+  public static double[] id(String x)
+  {
+      //Split string, convert numbers to ints, put into array
+      double[] arr = new double[2];
+      return arr;
+  }
+	/*****************************************
+    * ActionListener for Run button
+    *****************************************/
     private class Listener implements ActionListener
     {
+	 /*****************************************
+    * Runs when action has occurred 
+    * @param e  ActionEvent
+    ******************************************/
+
         public void actionPerformed(ActionEvent e)
         {
-            dostuff(input, rbox, intdomain);
-            
+    			//runs doStuff method        
+				doStuff((String)input.getSelectedItem(), (String)rbox.getSelectedItem(),intdomain.getText());
+            answer.setText("Answer: "+
+                    Processor.compute((String)rbox.getSelectedItem(), id(intdomain.getText())));
+            display.updateUI();            
         }
     }
-
+/**************************************
+* Sets preferred size of JFrame
+*************************************/
   public Dimension getPreferredSize(){
+      // returns preferred dimension of 800x700
       return new Dimension(800,700);
   }
 }

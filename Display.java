@@ -1,38 +1,58 @@
-import javax.swing.*;
-import java.awt.*;
-import java.lang.Math;
-import java.util.*;
-import java.awt.event.*;
+//Didi Park - Quadrature
+// May 23, 2013
 
+import javax.swing.*; //swing graphics
+import java.awt.*; // awt classes
+import java.lang.Math; // Math class
+import java.util.*; // Utilities
+import java.awt.event.*; // Events
+import java.io.*; // Input output
+/***********************************************************
+* Display has a paintComponent and draws
+* the plotting area and function in the 
+* center of the panel
+* @author Didi Park, website: https://github.com/didigodot
+************************************************************/
 public class Display extends JPanel 
 {
-    public int A;
-    private int B;
-    private int C;
-
+	/****************************************************
+	* Draws axes on Display
+	* @param g	Graphics object
+	****************************************************/
     public void drawAxes(Graphics g)
     {
-        g.setColor(Color.BLACK);
+        g.setColor(Color.BLACK); // Set color to black
         g.drawLine(360, 20, 360, 550); //y-axis
         g.drawLine(50, 280, 650, 280); //x-axis
     }
-    /*public static  parseF(int a, int b, int c)
-    {
-         A = a;
-         B = b;
-         C = c;
-         System.out.println(A+","+B+","+C);
-    } */
 
+    /*******************************************************
+    * Checks whether a given point is bounded by the plot
+    * @param    x  x-coordinate
+    * @param    y1 y-coordinate
+    * @param    y2 second y-coordinate
+    * @return   boundedness
+    *******************************************************/ 
     public static boolean bounded(int x, int y1, int y2)
     {
-        if(x>=50 && x<=650 && y1<=550 && y1>=20 && y2<=550 && y2>=20)
+    	// Check if x, y1, and y2 are contained within window    
+		  if(x>=50 && x<=650 && y1<=550 && y1>=20 && y2<=550 && y2>=20)
             return true;
-        return false;
+        else
+		  		return false;
     }
+	 /***************************************************
+    * Draws function on coordinate plane
+    * @param g  Graphics object
+    ***************************************************/
     public static void drawPlot(Graphics g)
     {
-       g.setColor(Color.BLACK);
+       g.setColor(Color.BLACK); // Set color to black
+		 // Plot graph depending on graph type 
+		 // Set different color if needed
+		 // Plot integration if needed
+       //print data to text file
+			/*use a switch!*/
        for(int i = 50; i<650; i++)
        {
             double y = Math.pow((((double)i-360.0)/260.0), 2.0);
@@ -42,18 +62,24 @@ public class Display extends JPanel
        }
 
     }        
-        
+    /***************************************************
+    * Runs all other methods to draw function, axes, etc.
+    * @param g  Graphics object
+    ***************************************************/ 
     public void paintComponent(Graphics g2) 
     {
-        //Graphics2D g2 = (Graphics2D)g;
-        //g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-        //                    RenderingHints.VALUE_ANTIALIAS_ON);
+	 
+	 	  // Set color to white
         g2.setColor(Color.WHITE);
-        //draw background
-        g2.fillRect(50, 20, 600, 530); //x,y,width,height
+        // Draw filled rectangle at (50,20), width=600, height=530
+        g2.fillRect(50, 20, 600, 530);
+		  // Set color to black
         g2.setColor(Color.BLACK);
+		  // Draw rectangle at (50, 20), width=600, height=530
         g2.drawRect(50,20,600,530);
+		  //Draw axes 
         drawAxes(g2);
+		  //Draw graph
         drawPlot(g2);
     }
 }
