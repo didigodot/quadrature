@@ -15,6 +15,10 @@ import java.io.*; // Input output
 ************************************************************/
 public class Display extends JPanel 
 {
+    static double A = 2.0; //exponent
+    static String type; //type of quadrature
+    static double[] intd; //integration domain
+
 	/****************************************************
 	* Draws axes on Display
 	* @param g	Graphics object
@@ -25,7 +29,22 @@ public class Display extends JPanel
         g.drawLine(360, 20, 360, 550); //y-axis
         g.drawLine(50, 280, 650, 280); //x-axis
     }
-
+    /******************************************************
+    * Sets parameters of graph/integraion technique
+    * @param func   Function type
+    * //maybenot? @param qrule  Quadrature rule
+    * @param intdo  Integration domain
+    ******************************************************/
+    public static void setParams(String func, double[] intdo)
+    {
+        System.out.println(func);
+        if(func.equals("x^2"))
+            A=2.0;
+        if(func.equals("x^3"))
+            A=3.0;
+        if(func.equals("x^4"))
+            A=4.0;
+    }
     /*******************************************************
     * Checks whether a given point is bounded by the plot
     * @param    x  x-coordinate
@@ -52,15 +71,15 @@ public class Display extends JPanel
 		 // Set different color if needed
 		 // Plot integration if needed
        //print data to text file
-			/*use a switch!*/
+       //if(a=3rl
        for(int i = 50; i<650; i++)
        {
-            double y = Math.pow((((double)i-360.0)/260.0), 2.0);
+            System.out.println(A);
+            double y = Math.pow((((double)i-360.0)/260.0), A);
             int x = i; int y1 = (int)((280-(y*250))); int y2 = (int)((280-(y*250)));
             if(bounded(x, y1, y2))
                 g.drawLine(x, y1, x, y2);
        }
-
     }        
     /***************************************************
     * Runs all other methods to draw function, axes, etc.

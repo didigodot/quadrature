@@ -6,6 +6,7 @@ import javax.swing.*; //Swing graphics classes
 import java.awt.*; // awt classes
 import java.util.*; //util classes
 import java.awt.event.*; // event classes
+import java.lang.String; //String class
 
  /*******************************************************
  * A Panel has 5 JLabels, a JTextField, and 2 JComboBoxes.
@@ -99,18 +100,6 @@ public class Panel extends JPanel
         add(panel, BorderLayout.EAST);
         
      }
-	/**********************************************
-   * Sends information to Display and Processor
-   * @param a   JComboBox with function input
-   * @param b   JComboBox with quadrature rule
-   * @param c   JTextField with integration domain
-   **********************************************/
-   public static void doStuff(String a, String b, String c)
-   {
-        // tell Display to draw function and collect data points
-        // update display 
-        
-   }
   /*********************************************
   * Returns parsed version of integration domain
   * @param x    string containing integration domain
@@ -119,7 +108,8 @@ public class Panel extends JPanel
   public static double[] id(String x)
   {
       //Split string, convert numbers to ints, put into array
-      double[] arr = new double[2];
+      String[] a = x.split("[,()]");
+      double[] arr = {Double.parseDouble(a[0]), Double.parseDouble(a[1])};
       return arr;
   }
 	/*****************************************
@@ -135,10 +125,9 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
     			//runs doStuff method        
-				doStuff((String)input.getSelectedItem(), (String)rbox.getSelectedItem(),intdomain.getText());
+		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
             answer.setText("Answer: "+
                     Processor.compute((String)rbox.getSelectedItem(), id(intdomain.getText())));
-            display.updateUI();            
         }
     }
 /**************************************
