@@ -6,6 +6,8 @@
 
 public class Processor
 {
+    static double[][] data = new double[2][200];
+    static double exp = 2.0;
     /*************************************************
     * Computes integral using trapezoidal rule
     * @param x  data file name
@@ -15,6 +17,7 @@ public class Processor
     public static double trapezoidal(String x, double[] a)
     {
         //Uses trapezoidal rule to compute integral
+        
         return -1;
     }
 	 /*************************************************
@@ -57,5 +60,15 @@ public class Processor
 		  else
 		  		return -1;
     }
-
+    public static void makeData(String func, double[] intdo)
+    {
+        for(int i=0; i<(int)intdo[1]; i++)
+        {
+            double x = intdo[0]+(double)(i)/2;
+            double y = Math.pow(x, exp);
+            data[0][i]=x;
+            data[1][i]=y;
+        }
+            
+    }
 }

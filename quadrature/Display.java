@@ -37,7 +37,6 @@ public class Display extends JPanel
     ******************************************************/
     public static void setParams(String func, double[] intdo)
     {
-        System.out.println(func);
         if(func.equals("x^2"))
             A=2.0;
         if(func.equals("x^3"))
@@ -77,7 +76,7 @@ public class Display extends JPanel
        //if(a=3rl
        for(int i = 50; i<650; i++)
        {
-            double y = Math.pow((((double)i-360.0)/260.0), 0.5);
+            double y = Math.pow((((double)i-360.0)/260.0), 2);
             int x = i; int y1 = (int)((280-(y*250)));
             if(bounded(x, y1))
                 {g.drawLine(x, y1, x, y1);

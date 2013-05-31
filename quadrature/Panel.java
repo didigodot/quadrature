@@ -54,7 +54,7 @@ public class Panel extends JPanel
 		  // Add title to titlep Panel
         titlep.add(title);
 		  
-		  // Instantiate and set answer to JLabel "Answer: "
+		// Instantiate and set answer to JLabel "Answer: "
         answer = new JLabel();
         answer.setText("Answer: ");
         
@@ -93,6 +93,7 @@ public class Panel extends JPanel
         panel.add(rule);
         panel.add(rbox);
         panel.add(run);
+        panel.add(answer);
 
 		  // add subpanels to BorderLayout
         add(titlep, BorderLayout.NORTH); 
@@ -126,6 +127,8 @@ public class Panel extends JPanel
         {
     			//runs doStuff method        
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
+            Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
+            System.out.println((String)input.getSelectedItem()+", "+(String)intdomain.getText()+", "+(String)rbox.getSelectedItem());
             answer.setText("Answer: "+
                     Processor.compute((String)rbox.getSelectedItem(), id(intdomain.getText())));
         }
@@ -138,3 +141,4 @@ public class Panel extends JPanel
       return new Dimension(800,700);
   }
 }
+
