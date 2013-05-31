@@ -48,14 +48,13 @@ public class Display extends JPanel
     /*******************************************************
     * Checks whether a given point is bounded by the plot
     * @param    x  x-coordinate
-    * @param    y1 y-coordinate
-    * @param    y2 second y-coordinate
+    * @param    y y-coordinate
     * @return   boundedness
     *******************************************************/ 
-    public static boolean bounded(int x, int y1, int y2)
+    public static boolean bounded(int x, int y)
     {
-    	// Check if x, y1, and y2 are contained within window    
-		  if(x>=50 && x<=650 && y1<=550 && y1>=20 && y2<=550 && y2>=20)
+    	// Check if x and y are contained within window    
+		  if(x>=50 && x<=650 && y<=550 && y>=20)
             return true;
         else
 		  		return false;
@@ -64,8 +63,12 @@ public class Display extends JPanel
     * Draws function on coordinate plane
     * @param g  Graphics object
     ***************************************************/
-    public static void drawPlot(Graphics g)
+    public static void drawPlot(Graphics g) throws IOException
     {
+       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("data2.txt")));
+       try{ System.out.println("asdf");
+       } catch(IOException e)
+       { System.err.println("Caught IOException: " + e.getMessage());}
        g.setColor(Color.BLACK); // Set color to black
 		 // Plot graph depending on graph type 
 		 // Set different color if needed
@@ -74,20 +77,19 @@ public class Display extends JPanel
        //if(a=3rl
        for(int i = 50; i<650; i++)
        {
-            System.out.println(A);
             double y = Math.pow((((double)i-360.0)/260.0), A);
-            int x = i; int y1 = (int)((280-(y*250))); int y2 = (int)((280-(y*250)));
-            if(bounded(x, y1, y2))
-                g.drawLine(x, y1, x, y2);
+            int x = i; int y1 = (int)((280-(y*250)));
+            if(bounded(x, y1))
+                {g.drawLine(x, y1, x, y1);
+                out.println(x+" "+y1);}
        }
     }        
     /***************************************************
     * Runs all other methods to draw function, axes, etc.
     * @param g  Graphics object
     ***************************************************/ 
-    public void paintComponent(Graphics g2) 
+    public void paintComponent(Graphics g2) throws IOException 
     {
-	 
 	 	  // Set color to white
         g2.setColor(Color.WHITE);
         // Draw filled rectangle at (50,20), width=600, height=530
