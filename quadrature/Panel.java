@@ -127,10 +127,11 @@ public class Panel extends JPanel
         {
     			//runs doStuff method        
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
-            Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
             System.out.println((String)input.getSelectedItem()+", "+(String)intdomain.getText()+", "+(String)rbox.getSelectedItem());
+            Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
             answer.setText("Answer: "+
-                    Processor.compute((String)rbox.getSelectedItem(), id(intdomain.getText())));
+                    Processor.compute((String)rbox.getSelectedItem()));
+            System.out.println(Processor.trapezoidal());
         }
     }
 /**************************************
