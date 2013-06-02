@@ -17,7 +17,7 @@ public class Processor
     public static double trapezoidal(String x, double[] a)
     {
         //Uses trapezoidal rule to compute integral
-        
+        //asdf
         return -1;
     }
 	 /*************************************************
