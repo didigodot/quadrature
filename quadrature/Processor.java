@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Processor
 {
-    static double[][] data = new double[2][1000];
+    static double[][] data = new double[2][10000];
     static double exp = 2.0;
     /*************************************************
     * Computes integral using trapezoidal rule
@@ -15,15 +15,17 @@ public class Processor
     * @param a  integration domain
     * @return   answer
     ************************************************/
-    public static double trapezoidal()
+    public static double trapezoidal(double stepsize)
     {
         //Uses trapezoidal rule to compute integral
         double sum = 0;
         System.out.println("wtf");
-        for(int i = 0; i<499; i++)
+        int i = 0;
+        while(data[1][i]-data[1][i+1]!=0)
          {
-             sum+=(((data[1][i]+data[1][i+1])/2.0)*(data[0][i+1]-data[0][i]));
+             sum+=(((data[1][i]+data[1][i+1])/2.0)*stepsize);
              System.out.println("("+data[0][i+1]+"-"+data[0][i]+")*("+data[1][i]+"+"+data[1][i+1]+")/2.0");
+             i++;
          }
         return sum;
     }
@@ -55,7 +57,7 @@ public class Processor
         // Depending on the contents of the string,
         // calls appropriate method
         if(x.equals("Trapezoidal"))
-            return trapezoidal();
+            return trapezoidal(0.01);
         if(x.equals("Simpsons"))
             return simpsons();
         if(x.equals("Booles"))
