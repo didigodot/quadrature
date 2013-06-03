@@ -18,7 +18,8 @@ public class Display extends JPanel
     public static double A = 2.0; //exponent
     static String type; //type of quadrature
     static double[] intd; //integration domain
-	/****************************************************
+    public static boolean integrated = false; //integration has happened?
+    /****************************************************
 	* Draws axes on Display
 	* @param g	Graphics object
 	****************************************************/
@@ -49,13 +50,31 @@ public class Display extends JPanel
     * @param    y y-coordinate
     * @return   boundedness
     *******************************************************/ 
-    public static boolean bounded(int x, int y)
+    public static boolean bounded(int x, int y, int y1)
     {
     	// Check if x and y are contained within window    
-		  if(x>=50 && x<=650 && y<=550 && y>=20)
+		  if(x>=50 && x<=650 && y<=550 && y>=20 && y1<=550 && y1>=20)
             return true;
         else
 		  		return false;
+    }
+     /***************************************************
+    * Draws visualization of quadrature on coordinate plane
+    * @param g  Graphics object
+    ***************************************************/
+    public static void drawInt(Graphics g)
+    {
+        g.setColor(Color.RED);
+        for(int i = 50; i<650; i+=100)
+       {
+            double y1 = Math.pow((((double)i-360.0)/260.0), A);
+            double y2 = Math.pow((((double)(i+100.0)-360.0)/260.0), A);
+            int x = i; 
+            int Y1 = (int)((280-(y1*250))); 
+            int Y2 = (int)((280-(y2*250)));
+            if(bounded(x, Y2, Y1))
+                g.drawLine(x, Y1, x+100, Y2);
+       }
     }
 	 /***************************************************
     * Draws function on coordinate plane
@@ -64,21 +83,17 @@ public class Display extends JPanel
     public static void drawPlot(Graphics g)
     {
        g.setColor(Color.BLACK); // Set color to black
-		 // Plot graph depending on graph type 
-		 // Set different color if needed
-		 // Plot integration if needed
-       //print data to text file
-       //if(a=3rl
-       System.out.println("I was fucking here, bitch. "+A);
+	   // Plot graph depending on graph type 
        for(int i = 50; i<650; i++)
        {
             double y = Math.pow((((double)i-360.0)/260.0), A);
             int x = i; int y1 = (int)((280-(y*250)));
-            if(bounded(x, y1))
-                {g.drawLine(x, y1, x, y1);
-                //out.println(x+" "+y1);
-                }
+            if(bounded(x, y1, 20))
+                g.drawLine(x, y1, x, y1);
        }
+       // Plot integration if needed
+       if(integrated==true)
+           drawInt(g);
     }        
     /***************************************************
     * Runs all other methods to draw function, axes, etc.

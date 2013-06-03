@@ -128,6 +128,8 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
+            Display.integrated=true;
+            Display.intd=id((String)intdomain.getText());
             display.repaint();
             add(display, BorderLayout.CENTER);
             System.out.println((String)input.getSelectedItem()+", "

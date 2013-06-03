@@ -9,6 +9,7 @@ public class Processor
 {
     static double[][] data = new double[2][10000];
     public static double exp = 2.0;
+    public static String type= "";
     /*************************************************
     * Computes integral using trapezoidal rule
     * @param stepsize   Step size
@@ -39,7 +40,8 @@ public class Processor
         int i = 0;
         while(data[1][i]-data[1][i+1]!=0)
          {
-             sum+=(((data[1][i]+data[1][i+1])+4*data[1][(int)((i+i+1)/2.0)])*stepsize/6.0); 
+             sum+=(((data[1][i]+data[1][i+1])+4*
+             data[1][(int)((i+i+1)/2.0)])*stepsize/6.0); 
              i++;
          }
         return sum;
@@ -63,7 +65,7 @@ public class Processor
         // Depending on the contents of the string,
         // calls appropriate method
         if(x.equals("Trapezoidal"))
-            return trapezoidal(1.0);
+            return trapezoidal(0.01);
         if(x.equals("Simpson's"))
             return simpsons(1.0);
         if(x.equals("Boole's"))
@@ -73,9 +75,9 @@ public class Processor
     }
     public static void makeData(String func, double[] intdo)
     {
-        for(int i=0; i<(int)intdo[1]; i++)
+        for(int i=0; i<(int)intdo[1]*100; i++)
         {
-            double x = intdo[0]+(double)(i);
+            double x = intdo[0]+(double)(i/100.0);
             double y = Math.pow(x, exp);
             data[0][i]=x;
             data[1][i]=y;
