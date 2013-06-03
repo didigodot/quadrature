@@ -17,12 +17,14 @@ import java.lang.String; //String class
  ********************************************************/
 public class Panel extends JPanel 
 {
-    Display display; // Instantiates display
+    public static Display display; // Instantiates display
     private JLabel title; //"Quadrature"
     private JLabel inp; // Input label
     private JLabel intdom; //Integration domain label
     private JLabel rule; // Quadrature type label
     private JLabel answer; // Answer to integration problem
+    private JLabel correctan; //Accurate answer to integration
+    private JLabel accuracy; //Accuracy of quadrature
     private JTextField intdomain; //Box to input integration domain
     private JComboBox input; // combobox for input
     private JComboBox rbox; // combobox for quadrature rule
@@ -125,13 +127,15 @@ public class Panel extends JPanel
 
         public void actionPerformed(ActionEvent e)
         {
-    			//runs doStuff method        
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
-            System.out.println((String)input.getSelectedItem()+", "+(String)intdomain.getText()+", "+(String)rbox.getSelectedItem());
+            display.repaint();
+            add(display, BorderLayout.CENTER);
+            System.out.println((String)input.getSelectedItem()+", "
+                +(String)intdomain.getText()+", "+(String)rbox.getSelectedItem());
             Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
             answer.setText("Answer: "+
                     Processor.compute((String)rbox.getSelectedItem()));
-            System.out.println(Processor.trapezoidal());
+           
         }
     }
 /**************************************

@@ -8,18 +8,16 @@ import java.util.Scanner;
 public class Processor
 {
     static double[][] data = new double[2][10000];
-    static double exp = 2.0;
+    public static double exp = 2.0;
     /*************************************************
     * Computes integral using trapezoidal rule
-    * @param x  data file name
-    * @param a  integration domain
+    * @param stepsize   Step size
     * @return   answer
     ************************************************/
     public static double trapezoidal(double stepsize)
     {
         //Uses trapezoidal rule to compute integral
         double sum = 0;
-        System.out.println("wtf");
         int i = 0;
         while(data[1][i]-data[1][i+1]!=0)
          {
@@ -31,12 +29,20 @@ public class Processor
     }
 	 /*************************************************
     * Computes integral using Simpson's rule
+    * @param stepsize   Step size
     * @return   answer
     ************************************************/
-    public static double simpsons()
+    public static double simpsons(double stepsize)
     {
         //Uses Simpson's rule to compute integral
-        return -1;
+        double sum = 0;
+        int i = 0;
+        while(data[1][i]-data[1][i+1]!=0)
+         {
+             sum+=(((data[1][i]+data[1][i+1])+4*data[1][(int)((i+i+1)/2.0)])*stepsize/6.0); 
+             i++;
+         }
+        return sum;
     }
 	 /************************************************
     * Computes integral using Boole's rule
@@ -57,19 +63,19 @@ public class Processor
         // Depending on the contents of the string,
         // calls appropriate method
         if(x.equals("Trapezoidal"))
-            return trapezoidal(0.01);
-        if(x.equals("Simpsons"))
-            return simpsons();
-        if(x.equals("Booles"))
+            return trapezoidal(1.0);
+        if(x.equals("Simpson's"))
+            return simpsons(1.0);
+        if(x.equals("Boole's"))
             return booles();
 		else
 		  	return -1;
     }
     public static void makeData(String func, double[] intdo)
     {
-        for(int i=0; i<(int)intdo[1]*100; i++)
+        for(int i=0; i<(int)intdo[1]; i++)
         {
-            double x = intdo[0]+(double)(i/100.0);
+            double x = intdo[0]+(double)(i);
             double y = Math.pow(x, exp);
             data[0][i]=x;
             data[1][i]=y;

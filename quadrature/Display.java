@@ -15,10 +15,9 @@ import java.io.*; // Input output
 ************************************************************/
 public class Display extends JPanel 
 {
-    static double A = 2.0; //exponent
+    public static double A = 2.0; //exponent
     static String type; //type of quadrature
     static double[] intd; //integration domain
-
 	/****************************************************
 	* Draws axes on Display
 	* @param g	Graphics object
@@ -64,19 +63,16 @@ public class Display extends JPanel
     ***************************************************/
     public static void drawPlot(Graphics g)
     {
-       //PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("data2.txt")));
-       //try{ System.out.println("asdf");
-       //} catch(IOException e)
-       //{ System.err.println("Caught IOException: " + e.getMessage());}*/
        g.setColor(Color.BLACK); // Set color to black
 		 // Plot graph depending on graph type 
 		 // Set different color if needed
 		 // Plot integration if needed
        //print data to text file
        //if(a=3rl
+       System.out.println("I was fucking here, bitch. "+A);
        for(int i = 50; i<650; i++)
        {
-            double y = Math.pow((((double)i-360.0)/260.0), 2);
+            double y = Math.pow((((double)i-360.0)/260.0), A);
             int x = i; int y1 = (int)((280-(y*250)));
             if(bounded(x, y1))
                 {g.drawLine(x, y1, x, y1);
