@@ -29,6 +29,8 @@ public class Display extends JPanel
         g.setColor(Color.BLACK); // Set color to black
         g.drawLine(360, 20, 360, 550); //y-axis
         g.drawLine(50, 280, 650, 280); //x-axis
+        g.drawString("5",620,295); //label
+        g.drawString("-5", 80, 295); //label
     }
     /*******************************************************
     * Checks whether a given point is bounded by the plot
@@ -66,23 +68,23 @@ public class Display extends JPanel
     {
         /** only does trapezoidal**/
         /** MAKE SURE IT ONLY DRAWS IN THE INTEGRATION DOMAIN **/
-        for(int i = 50; i<650; i+=10)
+        for(int i = 50; i<650; i+=(int)(Processor.stepsize*20))
        {
             g.setColor(Color.RED);
             double y1 = Math.pow((((double)i-360.0)/260.0), A);
-            double y2 = Math.pow((((double)(i+10.0)-360.0)/260.0), A);
+            double y2 = Math.pow((((double)(i+(int)(Processor.stepsize*20))-360.0)/260.0), A);
             int x = i; 
             int Y1 = (int)((280-(y1*250))); 
             int Y2 = (int)((280-(y2*250)));
-            int[] xpoints = {x, x, x+10, x+10};
+            int[] xpoints = {x, x, x+(int)(Processor.stepsize*20), x+(int)(Processor.stepsize*20)};
             int[] ypoints = {280, Y1, Y2, 280};
-            if(bounded(x, Y2, Y1))
+            if(bounded(x, Y2, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
                 {
-                    g.drawLine(x, Y1, x+10, Y2);
+                    g.drawLine(x, Y1, x+(int)(Processor.stepsize*20), Y2);
                     g.fillPolygon(xpoints, ypoints, 4);
                     g.setColor(Color.BLUE);
                     g.drawLine(x, 280, x, Y1);
-                    g.drawLine(x+10,280, x+10, Y2);
+                    g.drawLine(x+(int)(Processor.stepsize*20),280, x+(int)(Processor.stepsize*20), Y2);
                 }
        }
     }

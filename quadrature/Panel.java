@@ -26,9 +26,9 @@ public class Panel extends JPanel
     private JLabel correctan; //Accurate answer to integration
     private JLabel accuracy; //Accuracy of quadrature
     private JTextField intdomain; //Box to input integration domain
+    private JTextField stpsize; //Box to input stepsize
     private JComboBox input; // combobox for input
     private JComboBox rbox; // combobox for quadrature rule
-
 	 /******************************************************
     * Sets layout and gives attributes to JComponents;
     * also gives action listeners and adds components to 
@@ -71,6 +71,8 @@ public class Panel extends JPanel
         
 		  // set integration domain label to text "0,5"
         intdomain = new JTextField("0, 5");
+        // set stepsize label to text "0.5"
+        stpsize = new JTextField("0.5");
         // set intdom to JLabel for integration domain
         intdom = new JLabel("Integration interval:");
 		  
@@ -92,6 +94,7 @@ public class Panel extends JPanel
         panel.add(input);
         panel.add(intdom);
         panel.add(intdomain);
+        panel.add(stpsize);
         panel.add(rule);
         panel.add(rbox);
         panel.add(run);
@@ -128,6 +131,7 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
+            Processor.stepsize=Double.parseDouble((String)stpsize.getText());
             Display.integrated=true;
             Display.intd=id((String)intdomain.getText());
             display.repaint();
