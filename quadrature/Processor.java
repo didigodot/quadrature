@@ -10,6 +10,7 @@ public class Processor
     static double[][] data = new double[2][10000];
     public static double exp = 2.0;
     public static String type= "";
+    public static stepsize = 0.01;
     /*************************************************
     * Computes integral using trapezoidal rule
     * @param stepsize   Step size
@@ -30,10 +31,9 @@ public class Processor
     }
 	 /*************************************************
     * Computes integral using Simpson's rule
-    * @param stepsize   Step size
     * @return   answer
     ************************************************/
-    public static double simpsons(double stepsize)
+    public static double simpsons()
     {
         //Uses Simpson's rule to compute integral
         double sum = 0;
@@ -65,9 +65,9 @@ public class Processor
         // Depending on the contents of the string,
         // calls appropriate method
         if(x.equals("Trapezoidal"))
-            return trapezoidal(0.01);
+            return trapezoidal();
         if(x.equals("Simpson's"))
-            return simpsons(1.0);
+            return simpsons();
         if(x.equals("Boole's"))
             return booles();
 		else

@@ -19,7 +19,8 @@ public class Display extends JPanel
     static String type; //type of quadrature
     static double[] intd; //integration domain
     public static boolean integrated = false; //integration has happened?
-    /****************************************************
+    
+	/****************************************************
 	* Draws axes on Display
 	* @param g	Graphics object
 	****************************************************/
@@ -28,21 +29,6 @@ public class Display extends JPanel
         g.setColor(Color.BLACK); // Set color to black
         g.drawLine(360, 20, 360, 550); //y-axis
         g.drawLine(50, 280, 650, 280); //x-axis
-    }
-    /******************************************************
-    * Sets parameters of graph/integraion technique
-    * @param func   Function type
-    * //maybenot? @param qrule  Quadrature rule
-    * @param intdo  Integration domain
-    ******************************************************/
-    public static void setParams(String func, double[] intdo)
-    {
-        if(func.equals("x^2"))
-            A=2.0;
-        if(func.equals("x^3"))
-            A=3.0;
-        if(func.equals("x^4"))
-            A=4.0;
     }
     /*******************************************************
     * Checks whether a given point is bounded by the plot
@@ -58,22 +44,46 @@ public class Display extends JPanel
         else
 		  		return false;
     }
-     /***************************************************
-    * Draws visualization of quadrature on coordinate plane
+    /******************************************************
+    * Sets parameters of graph/integraion technique
+    * @param func   Function type
+    * @param intdo  Integration domain
+    ******************************************************/
+    public static void setParams(String func, double[] intdo)
+    {
+        if(func.equals("x^2"))
+            A=2.0;
+        if(func.equals("x^3"))
+            A=3.0;
+        if(func.equals("x^4"))
+            A=4.0;
+    }
+    /******************************************************
+    * Draws visual of quadrature technique on graph
     * @param g  Graphics object
-    ***************************************************/
+    ******************************************************/
     public static void drawInt(Graphics g)
     {
-        g.setColor(Color.RED);
-        for(int i = 50; i<650; i+=100)
+        /** only does trapezoidal**/
+        /** MAKE SURE IT ONLY DRAWS IN THE INTEGRATION DOMAIN **/
+        for(int i = 50; i<650; i+=10)
        {
+            g.setColor(Color.RED);
             double y1 = Math.pow((((double)i-360.0)/260.0), A);
-            double y2 = Math.pow((((double)(i+100.0)-360.0)/260.0), A);
+            double y2 = Math.pow((((double)(i+10.0)-360.0)/260.0), A);
             int x = i; 
             int Y1 = (int)((280-(y1*250))); 
             int Y2 = (int)((280-(y2*250)));
+            int[] xpoints = {x, x, x+10, x+10};
+            int[] ypoints = {280, Y1, Y2, 280};
             if(bounded(x, Y2, Y1))
-                g.drawLine(x, Y1, x+100, Y2);
+                {
+                    g.drawLine(x, Y1, x+10, Y2);
+                    g.fillPolygon(xpoints, ypoints, 4);
+                    g.setColor(Color.BLUE);
+                    g.drawLine(x, 280, x, Y1);
+                    g.drawLine(x+10,280, x+10, Y2);
+                }
        }
     }
 	 /***************************************************
@@ -91,9 +101,7 @@ public class Display extends JPanel
             if(bounded(x, y1, 20))
                 g.drawLine(x, y1, x, y1);
        }
-       // Plot integration if needed
-       if(integrated==true)
-           drawInt(g);
+       
     }        
     /***************************************************
     * Runs all other methods to draw function, axes, etc.
@@ -111,7 +119,10 @@ public class Display extends JPanel
         g2.drawRect(50,20,600,530);
 		  //Draw axes 
         drawAxes(g2);
-		  //Draw graph
+       // Plot integration if needed
+       if(integrated==true)
+           drawInt(g2);
+       //draw plot
         drawPlot(g2);
     }
 }
