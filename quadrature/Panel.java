@@ -24,6 +24,7 @@ public class Panel extends JPanel
     private JLabel rule; // Quadrature type label
     private JLabel answer; // Answer to integration problem
     private JLabel correctan; //Accurate answer to integration
+    private JLabel Stpsize; //Stepsize label
     private JLabel accuracy; //Accuracy of quadrature
     private JTextField intdomain; //Box to input integration domain
     private JTextField stpsize; //Box to input stepsize
@@ -75,7 +76,8 @@ public class Panel extends JPanel
         stpsize = new JTextField("0.5");
         // set intdom to JLabel for integration domain
         intdom = new JLabel("Integration interval:");
-		  
+		// set stepsize label to text "Stepsize"
+        Stpsize = new JLabel("Step-size:");
 		  // create array of quadrature rule choices
         String[] rules = {"Trapezoidal", "Simpson's", "Boole's"};
     	  // instantiate rbox JComboBox    
@@ -94,6 +96,7 @@ public class Panel extends JPanel
         panel.add(input);
         panel.add(intdom);
         panel.add(intdomain);
+        panel.add(Stpsize);
         panel.add(stpsize);
         panel.add(rule);
         panel.add(rbox);
@@ -131,17 +134,26 @@ public class Panel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
 		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
-            Processor.stepsize=Double.parseDouble((String)stpsize.getText());
+            double s = Double.parseDouble((String)stpsize.getText());
+            Processor.stepsize=s;            
             Display.integrated=true;
             Display.intd=id((String)intdomain.getText());
-            display.repaint();
-            add(display, BorderLayout.CENTER);
-            System.out.println((String)input.getSelectedItem()+", "
-                +(String)intdomain.getText()+", "+(String)rbox.getSelectedItem());
-            Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
-            answer.setText("Answer: "+
-                    Processor.compute((String)rbox.getSelectedItem()));
-           
+            if(s>=0.05 && s<4.7 && Display.intd[0]>=-5.0 && Display.intd[1]<=5.0)
+            {
+                display.repaint();
+                add(display, BorderLayout.CENTER);
+                Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
+                String f = Double.toString(Processor.compute((String)rbox.getSelectedItem()));
+                if(s-(double)((int)s)==0)
+                    answer.setText("Answer: "+f);
+                else
+                    answer.setText("Answer: "+ f.substring(0,6));
+            }
+            else
+            {
+                JOptionPane frame = new JOptionPane();
+                JOptionPane.showMessageDialog(frame, "Integration domain or step size out of range", "Bad input", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 /**************************************

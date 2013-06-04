@@ -47,7 +47,7 @@ public class Display extends JPanel
 		  		return false;
     }
     /******************************************************
-    * Sets parameters of graph/integraion technique
+    * Sets parameters of graph/integration technique
     * @param func   Function type
     * @param intdo  Integration domain
     ******************************************************/
@@ -67,24 +67,24 @@ public class Display extends JPanel
     public static void drawInt(Graphics g)
     {
         /** only does trapezoidal**/
-        /** MAKE SURE IT ONLY DRAWS IN THE INTEGRATION DOMAIN **/
-        for(int i = 50; i<650; i+=(int)(Processor.stepsize*20))
+        int s = (int)(Processor.stepsize*30);
+        for(int i = 50; i<650; i+=s)
        {
             g.setColor(Color.RED);
             double y1 = Math.pow((((double)i-360.0)/260.0), A);
-            double y2 = Math.pow((((double)(i+(int)(Processor.stepsize*20))-360.0)/260.0), A);
+            double y2 = Math.pow((((double)(i+s)-360.0)/260.0), A);
             int x = i; 
             int Y1 = (int)((280-(y1*250))); 
             int Y2 = (int)((280-(y2*250)));
-            int[] xpoints = {x, x, x+(int)(Processor.stepsize*20), x+(int)(Processor.stepsize*20)};
+            int[] xpoints = {x, x, x+s, x+s};
             int[] ypoints = {280, Y1, Y2, 280};
             if(bounded(x, Y2, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
                 {
-                    g.drawLine(x, Y1, x+(int)(Processor.stepsize*20), Y2);
+                    g.drawLine(x, Y1, x+s, Y2);
                     g.fillPolygon(xpoints, ypoints, 4);
                     g.setColor(Color.BLUE);
                     g.drawLine(x, 280, x, Y1);
-                    g.drawLine(x+(int)(Processor.stepsize*20),280, x+(int)(Processor.stepsize*20), Y2);
+                    g.drawLine(x+s,280, x+s, Y2);
                 }
        }
     }

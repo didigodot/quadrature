@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Processor
 {
-    static double[][] data = new double[2][10000];
+    static double[][] data = new double[2][100000];
     public static double exp = 2.0;
     public static String type= "";
     public static double stepsize = 0.5;
