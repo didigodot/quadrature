@@ -29,8 +29,18 @@ public class Display extends JPanel
         g.setColor(Color.BLACK); // Set color to black
         g.drawLine(360, 20, 360, 550); //y-axis
         g.drawLine(50, 280, 650, 280); //x-axis
-        g.drawString("5",620,295); //label
-        g.drawString("-5", 80, 295); //label
+        int c = 0;
+        //label negative x axis
+        for(int i = 83; i<350; i+=55)
+        {
+            g.drawString(Integer.toString(-5+c), i, 295);
+            c++;
+        }
+         for(int i = 357; i<645; i+=53)
+        {
+            g.drawString(Integer.toString(-5+c), i, 295);
+            c++;
+        }
     }
     /*******************************************************
     * Checks whether a given point is bounded by the plot
@@ -41,7 +51,7 @@ public class Display extends JPanel
     public static boolean bounded(int x, int y, int y1)
     {
     	// Check if x and y are contained within window    
-		  if(x>=50 && x<=650 && y<=550 && y>=20 && y1<=550 && y1>=20)
+		  if(x>=30 && x<=650 && y<=560 && y>=20 && y1<=560 && y1>=20)
             return true;
         else
 		  		return false;
@@ -68,7 +78,7 @@ public class Display extends JPanel
     {
         /** only does trapezoidal**/
         int s = (int)(Processor.stepsize*30);
-        for(int i = 50; i<650; i+=s)
+        for(int i = (int)((intd[0]+6.34)*55.5); i<(int)((intd[1]+6.34)*55.5); i+=s)
        {
             g.setColor(Color.RED);
             double y1 = Math.pow((((double)i-360.0)/260.0), A);
@@ -86,6 +96,19 @@ public class Display extends JPanel
                     g.drawLine(x, 280, x, Y1);
                     g.drawLine(x+s,280, x+s, Y2);
                 }
+            /*else if((double)(x-360)/58.0<intd[0]) //left bound
+            {
+                int left = (int)((intd[0]+6.34)*55.5);
+                xpoints = { left, left, left
+            }
+            else if((double)(x-360)/58.0>intd[1]) //right bound
+            {
+                 g.drawLine(x, Y1, left, Y2);
+                 g.fillPolygon(xpoints, ypoints, 4);
+                 g.setColor(Color.BLUE);
+                 g.drawLine(x, 280, x, Y1);
+                 g.drawLine(x+s,280, x+s, Y2);
+            }*/
        }
     }
 	 /***************************************************
