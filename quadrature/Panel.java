@@ -133,7 +133,7 @@ public class Panel extends JPanel
 
         public void actionPerformed(ActionEvent e)
         {
-		    Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
+	   Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
             double s = Double.parseDouble((String)stpsize.getText());
             Processor.stepsize=s;            
             Display.integrated=true;
