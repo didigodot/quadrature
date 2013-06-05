@@ -16,7 +16,7 @@ import java.io.*; // Input output
 public class Display extends JPanel 
 {
     public static double A = 2.0; //exponent
-    static String type; //type of quadrature
+    public static String type = "Rectangular"; //type of quadrature
     static double[] intd; //integration domain
     public static boolean integrated = false; //integration has happened?
     
@@ -74,21 +74,24 @@ public class Display extends JPanel
     * Draws visual of quadrature technique on graph
     * @param g  Graphics object
     ******************************************************/
-    public static void drawInt(Graphics g)
+    public static void drawInt(Graphics g, String rule)
     {
         /** only does trapezoidal**/
         int s = (int)(Processor.stepsize*30);
-        for(int i = (int)((intd[0]+6.34)*55.5); i<(int)((intd[1]+6.34)*55.5); i+=s)
+       for(int i = (int)((intd[0]+6.34)*55.5); i<(int)((intd[1]+6.34)*55.5); i+=s)
        {
-            g.setColor(Color.RED);
-            double y1 = Math.pow((((double)i-360.0)/260.0), A);
-            double y2 = Math.pow((((double)(i+s)-360.0)/260.0), A);
+            g.setColor(Color.RED); //draw red
+            
+            double y1 = Math.pow((((double)i-360.0)/260.0), A); //first y value
+            double y2 = Math.pow((((double)(i+s)-360.0)/260.0), A); //second y value
             int x = i; 
-            int Y1 = (int)((280-(y1*250))); 
-            int Y2 = (int)((280-(y2*250)));
-            int[] xpoints = {x, x, x+s, x+s};
-            int[] ypoints = {280, Y1, Y2, 280};
-            if(bounded(x, Y2, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
+            int Y1 = (int)((280-(y1*250))); //scaled version of y1 value 
+            int Y2 = (int)((280-(y2*250))); //scaled version of y2 value
+            if(rule.equals("Trapezoidal"))
+            {
+                int[] xpoints = {x, x, x+s, x+s};
+                int[] ypoints = {280, Y1, Y2, 280};
+                if(bounded(x, Y2, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
                 {
                     g.drawLine(x, Y1, x+s, Y2);
                     g.fillPolygon(xpoints, ypoints, 4);
@@ -96,20 +99,49 @@ public class Display extends JPanel
                     g.drawLine(x, 280, x, Y1);
                     g.drawLine(x+s,280, x+s, Y2);
                 }
-            /*else if((double)(x-360)/58.0<intd[0]) //left bound
-            {
-                int left = (int)((intd[0]+6.34)*55.5);
-                xpoints = { left, left, left
+                /*else if((double)(x-360)/58.0<intd[0])
+                    {
+                    int left = (int)((intd[0]+6.34)*55.5);
+                    xpoints = { left, left, left}
+                    }
+                else if((double)(x-360)/58.0>intd[1]) //right bound
+                {
+                    g.drawLine(x, Y1, left, Y2);
+                    g.fillPolygon(xpoints, ypoints, 4);
+                    g.setColor(Color.BLUE);
+                    g.drawLine(x, 280, x, Y1);
+                    g.drawLine(x+s,280, x+s, Y2);
+                }*/
             }
-            else if((double)(x-360)/58.0>intd[1]) //right bound
+            else if(rule.equals("Rectangular"))
             {
-                 g.drawLine(x, Y1, left, Y2);
-                 g.fillPolygon(xpoints, ypoints, 4);
-                 g.setColor(Color.BLUE);
-                 g.drawLine(x, 280, x, Y1);
-                 g.drawLine(x+s,280, x+s, Y2);
-            }*/
-       }
+                int[] xpoints={x, x, x+s, x+s};
+                y1 = Math.pow(((((2.0*i+s)/2)-360.0)/260.0), A);
+                Y1 = (int)((280-(y1*250)));
+                int[] ypoints={280,Y1,Y1,280};
+                if(bounded(x, x+s, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
+                {
+                    g.fillPolygon(xpoints, ypoints, 4);
+                    g.setColor(Color.BLUE);
+                    g.drawLine(x, 280, x, Y1);
+                    g.drawLine(x, Y1, x+s, Y1);
+                }
+                /* else if((double)(x-360)/58.0<intd[0]) //left bound
+                {
+                    int left = (int)((intd[0]+6.34)*55.5);
+                    xpoints = { left, left, left
+                }
+                }
+                else if((double)(x-360)/58.0>intd[1]) //right bound
+                {
+                    g.drawLine(x, Y1, left, Y2);
+                    g.fillPolygon(xpoints, ypoints, 4);
+                    g.setColor(Color.BLUE);
+                    g.drawLine(x, 280, x, Y1);
+                    g.drawLine(x+s,280, x+s, Y2);
+                }*/
+            }
+        }
     }
 	 /***************************************************
     * Draws function on coordinate plane
@@ -146,7 +178,7 @@ public class Display extends JPanel
         drawAxes(g2);
        // Plot integration if needed
        if(integrated==true)
-           drawInt(g2);
+           drawInt(g2, type);
        //draw plot
         drawPlot(g2);
     }

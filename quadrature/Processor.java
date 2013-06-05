@@ -11,6 +11,25 @@ public class Processor
     public static String type= "";
     public static double stepsize = 0.5;
     /*************************************************
+    * Computes integral using rectangular rule
+    * @param stepsize   Step size
+    * @return   answer
+    ************************************************/
+    public static double rectangular()
+    {
+        //Uses rectangular rule to compute integral
+        double sum = 0;
+        int i = 0;
+        while(data[1][i]-data[1][i+1]!=0)
+         {
+             sum+=((data[1][(int)(i+stepsize/2.0)])*stepsize);
+             i++;
+         }
+	    System.out.println(sum);
+	    return sum;
+	
+    }
+    /*************************************************
     * Computes integral using trapezoidal rule
     * @param stepsize   Step size
     * @return   answer
@@ -48,15 +67,6 @@ public class Processor
         return sum;
     }
 	 /************************************************
-    * Computes integral using Boole's rule
-    * @return   answer
-    ************************************************/
-    public static double booles()
-    {
-        //Uses Boole's rule to compute intregral
-        return -1;
-    }
-	 /************************************************
     * Redirects information to individual quadrature rule
     * @param x  quadrature rule type
     * @return   answer
@@ -65,12 +75,12 @@ public class Processor
     {
         // Depending on the contents of the string,
         // calls appropriate method
+        if(x.equals("Rectangular"))
+            return rectangular();
         if(x.equals("Trapezoidal"))
             return trapezoidal();
         if(x.equals("Simpson's"))
             return simpsons();
-        if(x.equals("Boole's"))
-            return booles();
 		else
 		  	return -1;
     }

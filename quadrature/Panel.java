@@ -79,10 +79,10 @@ public class Panel extends JPanel
 		// set stepsize label to text "Stepsize"
         Stpsize = new JLabel("Step-size:");
 		  // create array of quadrature rule choices
-        String[] rules = {"Trapezoidal", "Simpson's", "Boole's"};
+        String[] rules = {"Rectangular", "Trapezoidal", "Simpson's"};
     	  // instantiate rbox JComboBox    
 		  rbox = new JComboBox(rules);
-		  // set selected index to "Trapezoidal"
+		  // set selected index to "Rectangular"
         rbox.setSelectedIndex(0);
 		  // instantiate rule JLabel to text "Integration method:"
         rule = new JLabel("Integration method:");
@@ -138,12 +138,14 @@ public class Panel extends JPanel
             Processor.stepsize=s;            
             Display.integrated=true;
             Display.intd=id((String)intdomain.getText());
+            Display.type=(String)rbox.getSelectedItem();
+            System.out.println("Currently, you have selected "+Display.type);
             if(s>=0.05 && s<4.7 && Display.intd[0]>=-5.0 && Display.intd[1]<=5.0)
             {
                 display.repaint(); //redraw
                 add(display, BorderLayout.CENTER); //redraw
                 Processor.makeData(id((String)intdomain.getText())); //make data
-                String f = Double.toString(Processor.compute((String)rbox.getSelectedItem()));
+                String f = Double.toString(Processor.compute(Display.type));
                 if(s-(double)((int)s)==0)
                     answer.setText("Answer: "+f);
                 else
