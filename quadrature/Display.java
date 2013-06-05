@@ -51,7 +51,7 @@ public class Display extends JPanel
     public static boolean bounded(int x, int y, int y1)
     {
     	// Check if x and y are contained within window    
-		  if(x>=30 && x<=650 && y<=560 && y>=20 && y1<=560 && y1>=20)
+		  if(x>=30 && x<=650 && y<=550 && y>=20 && y1<=550 && y1>=20)
             return true;
         else
 		  		return false;
@@ -78,10 +78,10 @@ public class Display extends JPanel
     {
         /** only does trapezoidal**/
         int s = (int)(Processor.stepsize*30);
-       for(int i = (int)((intd[0]+6.34)*55.5); i<(int)((intd[1]+6.34)*55.5); i+=s)
+        int[] iintd = {(int)((intd[0]+6.34)*55.5), (int)((intd[1]+6.34)*55.5)}; 
+       for(int i = iintd[0]; i<iintd[1]; i+=s)
        {
             g.setColor(Color.RED); //draw red
-            
             double y1 = Math.pow((((double)i-360.0)/260.0), A); //first y value
             double y2 = Math.pow((((double)(i+s)-360.0)/260.0), A); //second y value
             int x = i; 
@@ -91,7 +91,7 @@ public class Display extends JPanel
             {
                 int[] xpoints = {x, x, x+s, x+s};
                 int[] ypoints = {280, Y1, Y2, 280};
-                if(bounded(x, Y2, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
+                if(bounded(x, Y2, Y1)&& x<iintd[1] && x>iintd[0])
                 {
                     g.drawLine(x, Y1, x+s, Y2);
                     g.fillPolygon(xpoints, ypoints, 4);
@@ -99,19 +99,15 @@ public class Display extends JPanel
                     g.drawLine(x, 280, x, Y1);
                     g.drawLine(x+s,280, x+s, Y2);
                 }
-                /*else if((double)(x-360)/58.0<intd[0])
-                    {
-                    int left = (int)((intd[0]+6.34)*55.5);
-                    xpoints = { left, left, left}
-                    }
-                else if((double)(x-360)/58.0>intd[1]) //right bound
+                else if(x>iintd[1]) //right bound
                 {
-                    g.drawLine(x, Y1, left, Y2);
+                    xpoints[2] = iintd[1]; xpoints[3] = iintd[1];
                     g.fillPolygon(xpoints, ypoints, 4);
                     g.setColor(Color.BLUE);
+                    g.drawLine(x, Y1, iintd[1], Y2); // upper outline
                     g.drawLine(x, 280, x, Y1);
-                    g.drawLine(x+s,280, x+s, Y2);
-                }*/
+                    g.drawLine(iintd[1], 280, iintd[1], Y2);
+                }
             }
             else if(rule.equals("Rectangular"))
             {
@@ -119,27 +115,24 @@ public class Display extends JPanel
                 y1 = Math.pow(((((2.0*i+s)/2)-360.0)/260.0), A);
                 Y1 = (int)((280-(y1*250)));
                 int[] ypoints={280,Y1,Y1,280};
-                if(bounded(x, x+s, Y1)&&(double)(x-360)/58.0<intd[1] && (double)(x-360)/58.0>intd[0])
+                /*bounded(x, x+s, Y1)&&*/ 
+                if( bounded(x, Y1, Y1) && x<iintd[1] && x>iintd[0])
                 {
                     g.fillPolygon(xpoints, ypoints, 4);
                     g.setColor(Color.BLUE);
-                    g.drawLine(x, 280, x, Y1);
-                    g.drawLine(x, Y1, x+s, Y1);
+                    g.drawLine(x, 280, x, Y1);//left
+                    g.drawLine(x, Y1, x+s, Y1);//top
+                    g.drawLine(x+s, 280, x+s, Y1);//right
                 }
-                /* else if((double)(x-360)/58.0<intd[0]) //left bound
+                else if(x>iintd[1]) //right bound
                 {
-                    int left = (int)((intd[0]+6.34)*55.5);
-                    xpoints = { left, left, left
-                }
-                }
-                else if((double)(x-360)/58.0>intd[1]) //right bound
-                {
-                    g.drawLine(x, Y1, left, Y2);
+                    xpoints[2]=iintd[1]; xpoints[3] = iintd[1];
                     g.fillPolygon(xpoints, ypoints, 4);
                     g.setColor(Color.BLUE);
                     g.drawLine(x, 280, x, Y1);
                     g.drawLine(x+s,280, x+s, Y2);
-                }*/
+                   System.out.println("dogshit"); 
+                }
             }
         }
     }
