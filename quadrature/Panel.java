@@ -140,9 +140,9 @@ public class Panel extends JPanel
             Display.intd=id((String)intdomain.getText());
             if(s>=0.05 && s<4.7 && Display.intd[0]>=-5.0 && Display.intd[1]<=5.0)
             {
-                display.repaint();
-                add(display, BorderLayout.CENTER);
-                Processor.makeData((String)input.getSelectedItem(), id((String)intdomain.getText()));
+                display.repaint(); //redraw
+                add(display, BorderLayout.CENTER); //redraw
+                Processor.makeData(id((String)intdomain.getText())); //make data
                 String f = Double.toString(Processor.compute((String)rbox.getSelectedItem()));
                 if(s-(double)((int)s)==0)
                     answer.setText("Answer: "+f);

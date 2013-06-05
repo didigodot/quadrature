@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Processor
 {
     static double[][] data = new double[2][100000];
-    public static double exp = 2.0;
     public static String type= "";
     public static double stepsize = 0.5;
     /*************************************************
@@ -27,7 +26,10 @@ public class Processor
              System.out.println("("+data[0][i+1]+"-"+data[0][i]+")*("+data[1][i]+"+"+data[1][i+1]+")/2.0");
              i++;
          }
-        return sum;
+        System.out.println("computed trapezoidal!!!");
+	System.out.println(sum);
+	return sum;
+	
     }
 	 /*************************************************
     * Computes integral using Simpson's rule
@@ -72,13 +74,13 @@ public class Processor
 		else
 		  	return -1;
     }
-    public static void makeData(String func, double[] intdo)
+    public static void makeData(double[] intdo)
     {
         data = new double[2][1000];
-        for(int i=0; i<(int)intdo[1]*(1.0/stepsize); i++)
+	for(int i=0; i<(int)intdo[1]*(1.0/stepsize); i++)
         {
             double x = intdo[0]+(double)(i*stepsize);
-            double y = Math.pow(x, exp);
+            double y = Math.pow(x, Display.A);
             data[0][i]=x;
             data[1][i]=y;
         }
