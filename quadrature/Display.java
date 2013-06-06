@@ -17,7 +17,7 @@ public class Display extends JPanel
 {
     public static double A = 2.0; //exponent
     public static String type = "Rectangular"; //type of quadrature
-    public static double[] intd; //integration domain
+    public static double[] intd={0,5.0}; //integration domain
     public static boolean integrated = false; //integration has happened?
     
 	/****************************************************
@@ -61,7 +61,7 @@ public class Display extends JPanel
     * @param func   Function type
     * @param intdo  Integration domain
     ******************************************************/
-    public static void setParams(String func, double[] intdo)
+    public static void setParams(String func)
     {
         if(func.equals("x^2"))
             A=2.0;
@@ -115,7 +115,6 @@ public class Display extends JPanel
                 y1 = Math.pow(((((2.0*i+s)/2)-360.0)/260.0), A);
                 Y1 = (int)((280-(y1*250)));
                 int[] ypoints={280,Y1,Y1,280};
-                /*bounded(x, x+s, Y1)&&*/ 
                 if( bounded(x, Y1, Y1) && x<iintd[1] && x>iintd[0])
                 {
                     g.fillPolygon(xpoints, ypoints, 4);
@@ -131,7 +130,7 @@ public class Display extends JPanel
                     g.setColor(Color.BLUE);
                     g.drawLine(x, 280, x, Y1);
                     g.drawLine(x+s,280, x+s, Y2);
-                   System.out.println("dogshit"); 
+                   
                 }
             }
         }
@@ -150,6 +149,14 @@ public class Display extends JPanel
             int x = i; int y1 = (int)((280-(y*250)));
             if(bounded(x, y1, 20))
                 g.drawLine(x, y1, x, y1);
+			   int[] iintd={(int)((intd[0]+6.34)*55.5), (int)((intd[1]+6.34)*55.5)}; 
+            if(type.equals("Simpson's") && bounded(x, y1, 20)
+                && x>iintd[0] && x<iintd[1])
+            {
+                g.setColor(Color.RED);
+                g.drawLine(x,279,x,y1-2);
+            }
+
        }
        
     }        

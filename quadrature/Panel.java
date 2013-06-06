@@ -139,42 +139,34 @@ public class Panel extends JPanel
     * Runs when action has occurred 
     * @param e  ActionEvent
     ******************************************/
-
         public void actionPerformed(ActionEvent e)
         {
-	   Display.setParams((String)input.getSelectedItem(), id((String)intdomain.getText()));
+	        //set up display to draw
+            Display.setParams((String)input.getSelectedItem());
             double s = Double.parseDouble((String)stpsize.getText());
-            Processor.stepsize=s;            
-            Display.integrated=true;
-            Display.intd=id((String)intdomain.getText());
-            Display.type=(String)rbox.getSelectedItem();
-            System.out.println("Currently, you have selected "+Display.type);
+            Processor.stepsize=s; // set stepsize
+            Display.integrated=true; //set intregrated to true
+            Display.intd=id((String)intdomain.getText()); // set integration domain
+            Display.type=(String)rbox.getSelectedItem(); //set quadrature rule
             if(s>=0.05 && s<4.7 && Display.intd[0]>=-5.0 && Display.intd[1]<=5.0)
             {
                 display.repaint(); //redraw
                 add(display, BorderLayout.CENTER); //redraw
-                Processor.makeData(id((String)intdomain.getText())); //make data
+                //answers to be drawn on screen
+                Processor.intdomain=Display.intd;
                 String f = Double.toString(Processor.compute(Display.type));
                 String g = Double.toString(Processor.corrAns());
                 String h = Double.toString(Processor.acc(Processor.corrAns(), 
                                             Processor.compute(Display.type)));
-                if(s-(double)((int)s)==0)
-                {    
-                    answer.setText("Answer: "+f);
-                    correctans.setText("Correct Answer: "+g);
-                    accuracy.setText("Error: "+h+"%");
-                }
-                else
-                {
-                    answer.setText("Answer: "+ f.substring(0,6));
-                    correctans.setText("Correct Answer: "+g.substring(0,5));
-                    accuracy.setText("Error: "+h.substring(0,5)+"%");
-                }
+                answer.setText("Answer: "+ f.substring(0,f.indexOf(".")+2));
+                correctans.setText("Correct Answer: "+g.substring(0,g.indexOf(".")+2));
+                accuracy.setText("Error: "+h.substring(0,h.indexOf(".")+2)+"%");
             }
             else
             {
                 JOptionPane frame = new JOptionPane();
-                JOptionPane.showMessageDialog(frame, "Integration domain or step size out of range", "Bad input", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(frame, 
+                "Integration domain or step size out of range", "Bad input", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

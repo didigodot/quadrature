@@ -10,6 +10,7 @@ public class Processor
     static double[][] data = new double[2][100000];
     public static String type= "";
     public static double stepsize = 0.5;
+    public static double[] intdomain;
     /*************************************************
     * Computes integral using rectangular rule
     * @param stepsize   Step size
@@ -18,15 +19,14 @@ public class Processor
     public static double rectangular()
     {
         //Uses rectangular rule to compute integral
-        double sum = 0;
-        int i = 0;
-        while(data[1][i]-data[1][i+1]!=0)
+        double sum = 0.0;
+        for(int i = 0; i<(int)(intdomain[1]-intdomain[0])*(1.0/stepsize); i++)
          {
-             sum+=((data[1][(int)(i+stepsize/2.0)])*stepsize);
-             i++;
+             double x = (intdomain[0]+(double)(i*stepsize))+stepsize/2.0;
+             double y = Math.pow(x, Display.A);
+             sum+=y;
          }
-	    System.out.println(sum);
-	    return sum;
+	    return sum*stepsize;
 	
     }
     /*************************************************
@@ -38,16 +38,14 @@ public class Processor
     {
         //Uses trapezoidal rule to compute integral
         double sum = 0;
-        int i = 0;
-        while(data[1][i]-data[1][i+1]!=0)
+        for(int i = 0; i<(int)(intdomain[1]-intdomain[0])*(1.0/stepsize); i++)
          {
-             sum+=(((data[1][i]+data[1][i+1])/2.0)*stepsize);
-             System.out.println("("+data[0][i+1]+"-"+data[0][i]+")*("+data[1][i]+"+"+data[1][i+1]+")/2.0");
-             i++;
+             double x = (intdomain[0]+(double)(i*stepsize));
+             double y1 = Math.pow(x, Display.A);
+             double y2 = Math.pow(x+stepsize, Display.A);
+             sum+=stepsize*((y1+y2)/2.0);
          }
-        System.out.println("computed trapezoidal!!!");
-	System.out.println(sum);
-	return sum;
+	    return sum;
 	
     }
 	 /*************************************************
@@ -57,14 +55,11 @@ public class Processor
     public static double simpsons()
     {
         //Uses Simpson's rule to compute integral
-        double sum = 0;
-        int i = 0;
-        while(data[1][i]-data[1][i+1]!=0)
-         {
-             sum+=(((data[1][i]+data[1][i+1])+4*data[1][(int)((i+i+1)/2.0)])*stepsize/6.0); 
-             i++;
-         }
-        return sum;
+       double fa = Math.pow(intdomain[0], Display.A);
+       double fab = Math.pow((intdomain[0]+intdomain[1])/2.0, Display.A);
+       double fb = Math.pow(intdomain[1], Display.A);
+       double sum=((intdomain[1]-intdomain[0])/6.0)*(fa+4*fab+fb);
+       return sum; 
     }
     /***********************************************
     * Computes accurate answer using power rule
@@ -83,7 +78,12 @@ public class Processor
     ***********************************************/
     public static double acc(double a, double b)
     {
-        return (Math.abs(b-a)/a)*100.0;
+        double x = 0.0;
+        if(a!=0)
+            x=Math.abs((b-a)/a)*100.0;
+        else if(a==0 && b==0)
+            x=0.0;
+        return x;
     }
 	 /************************************************
     * Redirects information to individual quadrature rule
@@ -103,20 +103,5 @@ public class Processor
 		else
 		  	return -1;
     }
-    /*************************************************
-    * Makes list of data points for computations
-    * @param intdo  integration domain
-    ************************************************/
-    public static void makeData(double[] intdo)
-    {
-        data = new double[2][1000];
-	for(int i=0; i<(int)intdo[1]*(1.0/stepsize); i++)
-        {
-            double x = intdo[0]+(double)(i*stepsize);
-            double y = Math.pow(x, Display.A);
-            data[0][i]=x;
-            data[1][i]=y;
-        }
-            
-    }
+
 }
