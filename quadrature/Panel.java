@@ -23,7 +23,7 @@ public class Panel extends JPanel
     private JLabel intdom; //Integration domain label
     private JLabel rule; // Quadrature type label
     private JLabel answer; // Answer to integration problem
-    private JLabel correctan; //Accurate answer to integration
+    private JLabel correctans; //Accurate answer to integration
     private JLabel Stpsize; //Stepsize label
     private JLabel accuracy; //Accuracy of quadrature
     private JTextField intdomain; //Box to input integration domain
@@ -38,13 +38,13 @@ public class Panel extends JPanel
     public Panel()
     {
 	 	  //Set layout to BorderLayout
-        setLayout(new BorderLayout()); 
+        setLayout(new BorderLayout(10, 10)); 
 		  // Instantiate new Display
         display = new Display();
 		  // instantiate new JPanel panel	
         JPanel panel = new JPanel();
 		  // set panel layout to GridLayout
-        panel.setLayout(new GridLayout(14,3));
+        panel.setLayout(new GridLayout(16,1));
 		  // instantiate new JPanel titlep
         JPanel titlep = new JPanel();
 		  // Set titlep layout to FlowLayout
@@ -57,10 +57,17 @@ public class Panel extends JPanel
 		  // Add title to titlep Panel
         titlep.add(title);
 		  
-		// Instantiate and set answer to JLabel "Answer: "
+		// Set answer to JLabel "Answer: "
         answer = new JLabel();
+        correctans = new JLabel();
+        accuracy = new JLabel();
+
         answer.setText("Answer: ");
-        
+        // Set correct answer to JLabel "Correct answer: "
+        correctans.setText("Correct answer:          ");
+        // Set accuracy to JLabel "Accuracy"
+        accuracy.setText("Accuracy: ");
+
    	  // set inp to JLabel for function input
         inp = new JLabel("Function:");
 		  // create array of function choices
@@ -102,6 +109,8 @@ public class Panel extends JPanel
         panel.add(rbox);
         panel.add(run);
         panel.add(answer);
+        panel.add(correctans);
+        panel.add(accuracy);
 
 		  // add subpanels to BorderLayout
         add(titlep, BorderLayout.NORTH); 
@@ -146,10 +155,21 @@ public class Panel extends JPanel
                 add(display, BorderLayout.CENTER); //redraw
                 Processor.makeData(id((String)intdomain.getText())); //make data
                 String f = Double.toString(Processor.compute(Display.type));
+                String g = Double.toString(Processor.corrAns());
+                String h = Double.toString(Processor.acc(Processor.corrAns(), 
+                                            Processor.compute(Display.type)));
                 if(s-(double)((int)s)==0)
+                {    
                     answer.setText("Answer: "+f);
+                    correctans.setText("Correct Answer: "+g);
+                    accuracy.setText("Error: "+h+"%");
+                }
                 else
+                {
                     answer.setText("Answer: "+ f.substring(0,6));
+                    correctans.setText("Correct Answer: "+g.substring(0,5));
+                    accuracy.setText("Error: "+h.substring(0,5)+"%");
+                }
             }
             else
             {

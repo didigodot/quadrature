@@ -17,7 +17,7 @@ public class Display extends JPanel
 {
     public static double A = 2.0; //exponent
     public static String type = "Rectangular"; //type of quadrature
-    static double[] intd; //integration domain
+    public static double[] intd; //integration domain
     public static boolean integrated = false; //integration has happened?
     
 	/****************************************************

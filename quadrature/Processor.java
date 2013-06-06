@@ -66,6 +66,25 @@ public class Processor
          }
         return sum;
     }
+    /***********************************************
+    * Computes accurate answer using power rule
+    * @return answer
+    ***********************************************/
+    public static double corrAns()
+    {
+        return ((1.0/(Display.A+1.0))*Math.pow(Display.intd[1],Display.A+1.0))-
+        ((1.0/(Display.A+1.0))*Math.pow(Display.intd[0], Display.A+1.0));
+    }
+    /***********************************************
+    * Computes error of quadrature
+    * @param a  Precise value
+    * @param b  Approximate value
+    * @return   Percent error
+    ***********************************************/
+    public static double acc(double a, double b)
+    {
+        return (Math.abs(b-a)/a)*100.0;
+    }
 	 /************************************************
     * Redirects information to individual quadrature rule
     * @param x  quadrature rule type
@@ -84,6 +103,10 @@ public class Processor
 		else
 		  	return -1;
     }
+    /*************************************************
+    * Makes list of data points for computations
+    * @param intdo  integration domain
+    ************************************************/
     public static void makeData(double[] intdo)
     {
         data = new double[2][1000];
