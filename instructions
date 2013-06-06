@@ -1,0 +1,11 @@
+Instructions:
+
+1) Go to the directory quadrature/quadrature/
+2) Run "Driver" by either typing "java Driver" or opening Driver.java in jGrasp
+3) Experiment with different integration domains, step sizes, 
+   and quadrature rules. The program will give you answers to 
+   the integration problem of your choice. Try using the program for
+   different power functions using the drop-down menu.
+
+The APIs are available at the directory quadrature/quadrature/.
+Stubs used for planning the project are available at quadrature/stubs/.

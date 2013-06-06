@@ -1,0 +1,28 @@
+
+
+
+
+Project Report - Didi Park
+
+    In this project, I (as an individual not part of a team) created 
+a program to calculate integrals for three simple power functions 
+using three different methods of numerical integration. The user can 
+alter the step size of the integration method,the integration domain, 
+and the function using a graphical user interface.
+    Four classes were involved in the program. A Driver, a Panel, a Display,
+and a Processor. The Driver functioned to put a JFrame on the screen at a 
+certain location and size. The Panel served to draw different subpanels on
+the JFrame. I chose to use a BorderLayout on the Panel, with a Display in
+the center, a title subpanel in the north, and a subpanel on the east containing
+user input components. The Panel processed user input and sent this information
+to the Display and the Processor. The Display drew the function and visualizations
+of the integration methods on the screen. The Processor computed the answers
+to integration problems; its information was used by the Panel to display
+these answer to the user. 
+    I learned how to integrate different graphical components, such as JPanels,
+JFrames, and PaintComponents into one GUI; this was challenging because it 
+required me to research deeper into the workings of java GUIs. I also learned
+more about different layout managers as I decided which ones to use. In addition
+to this, I reinforced my knowledge on how to call methods from other classes 
+and how to modify variables from other classes. Without this project, I would
+not know how to integrate so many different parts into one cohesive program. 
